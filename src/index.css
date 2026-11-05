@@ -875,17 +875,31 @@ input {
     }
     .subject {
         width: 100%;
-        display: flex;
+        display: block;
+        /* Изменили с flex на block для правильного переноса */
         text-align: left;
         padding: 14px 16px;
         font-size: 15px;
         border: 1px solid var(--border);
         border-radius: 8px;
         background: var(--bg);
+        color: var(--text);
+        /* Делает текст черным в светлой теме */
+        font-weight: 500;
+        /* Чуть жирнее для читаемости */
+        white-space: normal;
+        /* Разрешает перенос текста на новую строку */
+        word-wrap: break-word;
+        /* Разбивает слишком длинные слова, если нужно */
+        box-sizing: border-box;
+        line-height: 1.4;
     }
     .subject.active {
         border-color: var(--accent);
         background: var(--accent-light);
+        color: var(--accent);
+        /* Активный предмет будет синим */
+        font-weight: 700;
     }
     /* Затемнение фона */
     .menu-backdrop {
