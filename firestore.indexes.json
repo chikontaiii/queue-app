@@ -1,0 +1,11 @@
+{
+    "indexes": [{
+        "collectionGroup": "queueEntries",
+        "queryScope": "COLLECTION",
+        "fields": [
+            { "fieldPath": "subjectId", "order": "ASCENDING" },
+            { "fieldPath": "joinedAt", "order": "ASCENDING" }
+        ]
+    }],
+    "fieldOverrides": []
+}

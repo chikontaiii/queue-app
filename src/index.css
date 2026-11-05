@@ -1,0 +1,786 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    /* Светлая тема (по умолчанию) */
+    --bg: #f8fafc;
+    --bg-panel: #ffffff;
+    --bg-hover: #f1f5f9;
+    --border: #e2e8f0;
+    --border-strong: #cbd5e1;
+    --text: #0f172a;
+    --text-muted: #64748b;
+    --text-dim: #94a3b8;
+    --accent: #2563eb;
+    --accent-hover: #1d4ed8;
+    --accent-light: #eff6ff;
+    --success: #10b981;
+    --success-light: #ecfdf5;
+    --danger: #ef4444;
+    --danger-light: #fef2f2;
+    --shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.03);
+    --radius: 12px;
+}
+
+[data-theme="dark"] {
+    /* Тёмная тема */
+    --bg: #0f172a;
+    --bg-panel: #1e293b;
+    --bg-hover: #334155;
+    --border: #334155;
+    --border-strong: #475569;
+    --text: #f8fafc;
+    --text-muted: #94a3b8;
+    --text-dim: #64748b;
+    --accent: #3b82f6;
+    --accent-hover: #60a5fa;
+    --accent-light: rgba(59, 130, 246, 0.15);
+    --success: #34d399;
+    --success-light: rgba(52, 211, 153, 0.15);
+    --danger: #f87171;
+    --danger-light: rgba(248, 113, 113, 0.15);
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+}
+
+html,
+body,
+#root {
+    height: 100%;
+}
+
+body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+    transition: background 0.3s, color 0.3s;
+    overflow-x: hidden;
+}
+
+
+/* ========== ОБЩИЕ ЭЛЕМЕНТЫ ========== */
+
+button {
+    font-family: inherit;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+}
+
+input {
+    font-family: inherit;
+    outline: none;
+    transition: all 0.2s;
+}
+
+.spinner {
+    width: 28px;
+    height: 28px;
+    border: 3px solid var(--border);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+.btn-spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    display: inline-block;
+}
+
+.btn-spinner.small {
+    width: 12px;
+    height: 12px;
+    border-width: 2px;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.app-loading {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+}
+
+
+/* ========== КНОПКА ТЕМЫ ========== */
+
+.theme-toggle {
+    background: transparent;
+    border: 1px solid var(--border);
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    display: grid;
+    place-items: center;
+    color: var(--text-muted);
+}
+
+.theme-toggle:hover {
+    background: var(--bg-hover);
+    color: var(--text);
+}
+
+
+/* ========== ЭКРАН ВХОДА ========== */
+
+.login-screen {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: 24px;
+}
+
+.login-card {
+    width: 100%;
+    max-width: 400px;
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 40px 32px;
+    text-align: center;
+    box-shadow: var(--shadow);
+}
+
+.login-logo {
+    width: 48px;
+    height: 48px;
+    background: var(--accent);
+    border-radius: 12px;
+    display: grid;
+    place-items: center;
+    margin: 0 auto 20px;
+    color: white;
+}
+
+.login-title {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.login-sub {
+    color: var(--text-muted);
+    font-size: 14px;
+    margin-bottom: 28px;
+}
+
+.login-btn {
+    width: 100%;
+    padding: 14px;
+    background: var(--accent);
+    color: white;
+    border-radius: var(--radius);
+    font-size: 15px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.login-btn:hover:not(:disabled) {
+    background: var(--accent-hover);
+}
+
+.login-btn:disabled {
+    opacity: 0.7;
+    cursor: wait;
+}
+
+.error {
+    color: var(--danger);
+    font-size: 13px;
+    margin-top: 16px;
+}
+
+.error-banner {
+    color: var(--danger);
+    background: var(--danger-light);
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    font-size: 14px;
+}
+
+
+/* ========== ВЫБОР ИМЕНИ ========== */
+
+.claim-screen {
+    min-height: 100vh;
+    padding: 40px 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.claim-container {
+    width: 100%;
+    max-width: 680px;
+}
+
+.claim-header {
+    margin-bottom: 24px;
+    position: relative;
+}
+
+.claim-badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--accent-light);
+    padding: 4px 10px;
+    border-radius: 99px;
+    margin-bottom: 12px;
+}
+
+.claim-title {
+    font-size: 28px;
+    font-weight: 800;
+    margin-bottom: 8px;
+}
+
+.claim-sub {
+    color: var(--text-muted);
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.claim-sub strong {
+    color: var(--text);
+}
+
+.claim-search-wrap {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.search-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 18px;
+    color: var(--text-dim);
+}
+
+.claim-search {
+    width: 100%;
+    padding: 14px 14px 14px 44px;
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text);
+    font-size: 15px;
+}
+
+.claim-search:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-light);
+}
+
+.claim-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 10px;
+}
+
+.claim-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text);
+    text-align: left;
+    box-shadow: var(--shadow);
+}
+
+.claim-card:hover:not(:disabled) {
+    border-color: var(--border-strong);
+    transform: translateY(-1px);
+}
+
+.claim-card.locked {
+    opacity: 0.5;
+    background: var(--bg);
+    cursor: not-allowed;
+}
+
+.claim-card.mine {
+    border-color: var(--success);
+    background: var(--success-light);
+    cursor: default;
+}
+
+.claim-order {
+    color: var(--text-dim);
+    font-weight: 600;
+    font-size: 13px;
+}
+
+.claim-name {
+    flex: 1;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.claim-status {
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.claim-card.mine .claim-status {
+    color: var(--success);
+    font-weight: 600;
+}
+
+.claim-noresult {
+    text-align: center;
+    padding: 40px;
+    color: var(--text-dim);
+}
+
+
+/* ========== ГЛАВНЫЙ ЭКРАН ========== */
+
+.main {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 24px;
+    background: var(--bg-panel);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.topbar-left,
+.topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.topbar-logo {
+    width: 32px;
+    height: 32px;
+    background: var(--accent);
+    border-radius: 8px;
+    display: grid;
+    place-items: center;
+    color: white;
+}
+
+.topbar-brand {
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.topbar-user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.topbar-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+}
+
+.topbar-info {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+}
+
+.topbar-name {
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.topbar-email {
+    font-size: 11px;
+    color: var(--text-muted);
+}
+
+.logout-btn {
+    width: 38px;
+    height: 38px;
+    display: grid;
+    place-items: center;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--text-muted);
+}
+
+.logout-btn:hover {
+    background: var(--danger-light);
+    border-color: var(--danger);
+    color: var(--danger);
+}
+
+.main-body {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    max-width: 1100px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 24px;
+    gap: 24px;
+}
+
+
+/* ========== СПИСОК ПРЕДМЕТОВ ========== */
+
+.subjects {
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px;
+    height: fit-content;
+    position: sticky;
+    top: 80px;
+    box-shadow: var(--shadow);
+}
+
+.subjects-title {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+    padding-left: 8px;
+}
+
+.subjects-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+.subject {
+    text-align: left;
+    padding: 10px 12px;
+    background: transparent;
+    color: var(--text-muted);
+    border-radius: 8px;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+.subject:hover {
+    background: var(--bg-hover);
+    color: var(--text);
+}
+
+.subject.active {
+    background: var(--accent-light);
+    color: var(--accent);
+    font-weight: 600;
+}
+
+
+/* ========== ОЧЕРЕДЬ ========== */
+
+.queue-panel {
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    box-shadow: var(--shadow);
+}
+
+.queue-header {
+    margin-bottom: 24px;
+}
+
+.queue-title {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.queue-meta {
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+.queue-empty {
+    display: grid;
+    place-items: center;
+    padding: 60px;
+    color: var(--text-muted);
+}
+
+.my-status {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    background: var(--accent-light);
+    border: 1px solid var(--accent);
+    border-radius: var(--radius);
+    padding: 20px;
+    margin-bottom: 16px;
+}
+
+.my-pos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 60px;
+}
+
+.my-pos-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase;
+}
+
+.my-pos-num {
+    font-size: 36px;
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1;
+}
+
+.my-info {
+    flex: 1;
+}
+
+.my-headline {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.my-sub {
+    font-size: 14px;
+    color: var(--text-muted);
+}
+
+.my-timer {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 4px;
+    font-variant-numeric: tabular-nums;
+}
+
+.queue-actions {
+    margin-bottom: 20px;
+}
+
+.btn-primary,
+.btn-danger {
+    width: 100%;
+    padding: 14px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.btn-primary {
+    background: var(--accent);
+    color: white;
+}
+
+.btn-primary:hover:not(:disabled) {
+    background: var(--accent-hover);
+}
+
+.btn-primary:disabled {
+    opacity: 0.6;
+    cursor: wait;
+}
+
+.btn-danger {
+    background: transparent;
+    color: var(--danger);
+    border: 1px solid var(--danger);
+}
+
+.btn-danger:hover {
+    background: var(--danger-light);
+}
+
+.queue-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.queue-item {
+    display: grid;
+    grid-template-columns: 40px 1fr auto;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+}
+
+.queue-item.mine {
+    border-color: var(--success);
+    background: var(--success-light);
+}
+
+.queue-pos {
+    width: 32px;
+    height: 32px;
+    display: grid;
+    place-items: center;
+    background: var(--bg-panel);
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+.queue-item.mine .queue-pos {
+    background: var(--success);
+    color: white;
+}
+
+.queue-name {
+    font-weight: 500;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.you-badge {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--success);
+    background: var(--bg-panel);
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+.queue-time {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-variant-numeric: tabular-nums;
+}
+
+.queue-time.urgent {
+    color: var(--danger);
+    font-weight: 600;
+}
+
+.queue-empty-row {
+    text-align: center;
+    padding: 32px;
+    color: var(--text-dim);
+    font-size: 14px;
+    list-style: none;
+}
+
+
+/* ========== АДАПТИВ ПОД ТЕЛЕФОНЫ ========== */
+
+@media (max-width: 768px) {
+    .topbar {
+        padding: 12px 16px;
+    }
+    .topbar-info {
+        display: none;
+    }
+    /* Скрываем email на мобилке */
+    .main-body {
+        grid-template-columns: 1fr;
+        padding: 16px;
+        gap: 16px;
+    }
+    /* Предметы превращаются в горизонтальную прокрутку */
+    .subjects {
+        position: static;
+        padding: 12px;
+        border-radius: var(--radius);
+        border: none;
+        border-bottom: 1px solid var(--border);
+        background: transparent;
+        box-shadow: none;
+        overflow: hidden;
+    }
+    .subjects-title {
+        display: none;
+    }
+    .subjects-list {
+        flex-direction: row;
+        overflow-x: auto;
+        padding-bottom: 8px;
+        max-height: none;
+        scrollbar-width: none;
+    }
+    .subjects-list::-webkit-scrollbar {
+        display: none;
+    }
+    .subject {
+        white-space: nowrap;
+        padding: 8px 16px;
+        border: 1px solid var(--border);
+        border-radius: 99px;
+        background: var(--bg-panel);
+    }
+    .subject.active {
+        border-color: var(--accent);
+    }
+    .queue-panel {
+        padding: 16px;
+        border: none;
+        box-shadow: none;
+        background: transparent;
+    }
+    .my-status {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+    .my-pos {
+        flex-direction: row;
+        gap: 8px;
+        align-items: baseline;
+    }
+    .my-pos-num {
+        font-size: 28px;
+    }
+    .claim-grid {
+        grid-template-columns: 1fr;
+    }
+}
