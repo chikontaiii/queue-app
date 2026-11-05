@@ -809,6 +809,9 @@ input {
 
 /* ========== АДАПТИВ ПОД ТЕЛЕФОНЫ ========== */
 
+
+/* ========== АДАПТИВ ПОД ТЕЛЕФОНЫ ========== */
+
 @media (max-width: 768px) {
     .topbar {
         padding: 12px 16px;
@@ -834,8 +837,8 @@ input {
         top: 0;
         left: 0;
         bottom: 0;
-        width: 280px;
-        max-width: 80vw;
+        width: 300px;
+        max-width: 85vw;
         z-index: 100;
         background: var(--bg-panel);
         transform: translateX(-100%);
@@ -861,15 +864,28 @@ input {
         font-size: 14px;
         margin-bottom: 16px;
     }
+    /* Делаем строго вертикальный список */
     .subjects-list {
+        display: flex;
+        flex-direction: column !important;
+        /* Принудительно колонка */
+        gap: 8px;
         max-height: none;
         overflow: visible;
     }
     .subject {
-        padding: 12px 16px;
+        width: 100%;
+        display: flex;
+        text-align: left;
+        padding: 14px 16px;
         font-size: 15px;
-        border: none;
+        border: 1px solid var(--border);
         border-radius: 8px;
+        background: var(--bg);
+    }
+    .subject.active {
+        border-color: var(--accent);
+        background: var(--accent-light);
     }
     /* Затемнение фона */
     .menu-backdrop {
