@@ -8,6 +8,7 @@ import Queue from './Queue';
 export default function Main({ user, student, theme, toggleTheme }) {
   const [subjects, setSubjects] = useState([]);
   const [active, setActive] = useState(null);
+  const [isMenuOpen, setIsMenuOpen] = useState(false); // Состояние для мобильного меню
 
   useEffect(() => {
     (async () => {
@@ -18,10 +19,22 @@ export default function Main({ user, student, theme, toggleTheme }) {
     })();
   }, []);
 
+  const handleSelectSubject = (subject) => {
+    setActive(subject);
+    setIsMenuOpen(false); // Закрываем меню после выбора
+  };
+
   return (
     <div className="main">
       <header className="topbar">
         <div className="topbar-left">
+          {/* Кнопка-бургер (видна только на мобилках) */}
+          <button className="hamburger-btn" onClick={() => setIsMenuOpen(true)}>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" width="20" height="20">
+              <path d="M4 6h16M4 12h16M4 18h16" strokeLinecap="round" />
+            </svg>
+          </button>
+          
           <div className="topbar-logo">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" width="18" height="18">
               <path d="M4 6h16M4 12h10M4 18h6" strokeLinecap="round" />
@@ -52,13 +65,22 @@ export default function Main({ user, student, theme, toggleTheme }) {
       </header>
 
       <div className="main-body">
-        <Subjects subjects={subjects} active={active} onSelect={setActive} />
+        {/* Затемнение фона при открытом меню */}
+        {isMenuOpen && (
+          <div className="menu-backdrop" onClick={() => setIsMenuOpen(false)} />
+        )}
+
+        {/* Обертка для сайдбара, которая выезжает на мобилках */}
+        <div className={`sidebar-wrapper ${isMenuOpen ? 'open' : ''}`}>
+          <Subjects subjects={subjects} active={active} onSelect={handleSelectSubject} />
+        </div>
+
         <div className="queue-area">
           {active ? (
             <Queue key={active.id} subject={active} student={student} />
           ) : (
             <div className="queue-empty">
-              <p>Выбери предмет слева</p>
+              <p>Выбери предмет</p>
             </div>
           )}
         </div>

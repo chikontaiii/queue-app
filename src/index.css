@@ -784,3 +784,133 @@ input {
         grid-template-columns: 1fr;
     }
 }
+
+
+/* ========== КНОПКА БУРГЕР ========== */
+
+.hamburger-btn {
+    display: none;
+    /* Скрыта на компьютере */
+    background: transparent;
+    border: 1px solid var(--border);
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    color: var(--text-muted);
+    align-items: center;
+    justify-content: center;
+}
+
+.hamburger-btn:hover {
+    background: var(--bg-hover);
+    color: var(--text);
+}
+
+
+/* ========== АДАПТИВ ПОД ТЕЛЕФОНЫ ========== */
+
+@media (max-width: 768px) {
+    .topbar {
+        padding: 12px 16px;
+    }
+    .topbar-info {
+        display: none;
+    }
+    .topbar-user {
+        margin-right: 8px;
+    }
+    /* Показываем бургер на мобилках */
+    .hamburger-btn {
+        display: flex;
+    }
+    .main-body {
+        grid-template-columns: 1fr;
+        padding: 16px;
+        gap: 16px;
+    }
+    /* Настройка выезжающего меню */
+    .sidebar-wrapper {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 280px;
+        max-width: 80vw;
+        z-index: 100;
+        background: var(--bg-panel);
+        transform: translateX(-100%);
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 4px 0 24px rgba(0, 0, 0, 0.1);
+        overflow-y: auto;
+    }
+    .sidebar-wrapper.open {
+        transform: translateX(0);
+    }
+    /* Сама панель предметов внутри меню */
+    .sidebar-wrapper .subjects {
+        position: static;
+        border: none;
+        background: transparent;
+        box-shadow: none;
+        border-radius: 0;
+        padding: 24px 16px;
+        max-height: none;
+    }
+    .sidebar-wrapper .subjects-title {
+        display: block;
+        font-size: 14px;
+        margin-bottom: 16px;
+    }
+    .subjects-list {
+        max-height: none;
+        overflow: visible;
+    }
+    .subject {
+        padding: 12px 16px;
+        font-size: 15px;
+        border: none;
+        border-radius: 8px;
+    }
+    /* Затемнение фона */
+    .menu-backdrop {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.4);
+        backdrop-filter: blur(2px);
+        z-index: 99;
+        animation: fadeIn 0.2s ease;
+    }
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+    .queue-panel {
+        padding: 16px;
+        border: none;
+        box-shadow: none;
+        background: transparent;
+    }
+    .my-status {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+    .my-pos {
+        flex-direction: row;
+        gap: 8px;
+        align-items: baseline;
+    }
+    .my-pos-num {
+        font-size: 28px;
+    }
+    .claim-grid {
+        grid-template-columns: 1fr;
+    }
+}
