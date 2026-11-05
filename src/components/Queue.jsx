@@ -103,7 +103,7 @@ const unsub = onSnapshot(q,
           </div>
           <div className="my-info">
             {myIndex === 0 ? (
-              <p className="my-headline">Твоя очередь — проходи 🎯</p>
+              <p className="my-headline">Твоя очередь - проходи</p>
             ) : (
               <>
                 <p className="my-headline">
